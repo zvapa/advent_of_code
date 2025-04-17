@@ -1,0 +1,8 @@
+[workspace]
+resolver = "3"
+members = [
+    "_2015/day01",
+    "_2015/day02",
+    # "_2016",
+    # add more years as needed
+]

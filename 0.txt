@@ -1,0 +1,17 @@
+advent_of_code/
+├── Cargo.toml         # Workspace root
+├── _2015/
+│   ├── Cargo.toml     # Year-specific crate
+│   ├── src/
+│   │   └── lib.rs     # Shared logic for 2015
+│   ├── day01/
+│   │   ├── part1.rs
+│   │   ├── part2.rs
+│   │   └── lib.rs     # Shared code for day01
+│   ├── day02/
+│   │   ├── part1.rs
+│   │   ├── part2.rs
+│   │   └── lib.rs
+│   └── ...
+├── _2016/
+│   └── ...
