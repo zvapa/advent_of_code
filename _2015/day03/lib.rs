@@ -75,22 +75,43 @@ pub fn deliver_presents_single_santa(
     })
 }
 
+pub struct PresentRoute<'a> {
+    input: std::str::Chars<'a>,
+    turn: usize,
+}
+
+impl<'a> PresentRoute<'a> {
+    pub fn new(input: std::str::Chars<'a>) -> Self {
+        Self { input, turn: 0 }
+    }
+}
+
+impl<'a> Iterator for PresentRoute<'a> {
+    type Item = (usize, char);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.input.next().map(|c| {
+            let agent_id = self.turn % 2;
+            self.turn += 1;
+            (agent_id, c)
+        })
+    }
+}
+
 pub fn deliver_presents_santa_and_robot(
     santa: &mut Santa,
     robot_santa: &mut Santa,
     houses_with_presents: &mut Grid,
     input_file_content: String,
 ) -> Result<(), String> {
-    let mut directions_iter = input_file_content.chars();
-    loop {
-        match directions_iter.next() {
-            Some(dir) => deliver_and_mark(santa, houses_with_presents, dir)?,
-            None => break,
-        }
-        match directions_iter.next() {
-            Some(dir) => deliver_and_mark(robot_santa, houses_with_presents, dir)?,
-            None => break,
-        }
+    let present_route = PresentRoute::new(input_file_content.chars());
+    for (agent_id, direction) in present_route {
+        let which_santa = if agent_id % 2 == 0 {
+            &mut *santa
+        } else {
+            &mut *robot_santa
+        };
+        deliver_and_mark(which_santa, houses_with_presents, direction)?
     }
     Ok(())
 }

@@ -7,3 +7,7 @@ members = [
     # "_2016",
     # add more years as needed
 ]
+
+[profile.dev]
+debug = true
+split-debuginfo = "off"
