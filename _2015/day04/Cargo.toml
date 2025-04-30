@@ -1,0 +1,18 @@
+[package]
+name = "_2015_day04"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "lib.rs"
+
+[[bin]]
+name = "_2015_day04_part1"
+path = "part1.rs"
+[[bin]]
+name = "_2015_day04_part2"
+path = "part2.rs"
+
+[dependencies]
+md5 = "0.7.0"
+rayon = "1.10.0"
