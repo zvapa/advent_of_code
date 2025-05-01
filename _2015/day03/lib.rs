@@ -116,36 +116,41 @@ pub fn deliver_presents_santa_and_robot(
     Ok(())
 }
 
-#[test]
-fn test_deliver_presents_single_santa() {
-    let mut santa = Santa {
-        current_location: HouseLocation { x: 0, y: 0 },
-    };
-    let mut houses_with_presents: Grid = std::collections::HashSet::new();
-    houses_with_presents.insert(santa.current_location);
-    let map = ">".to_string();
-    let _ = deliver_presents_single_santa(&mut santa, &mut houses_with_presents, map);
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    assert_eq!(houses_with_presents.len(), 2)
-}
+    #[test]
+    fn test_deliver_presents_single_santa() {
+        let mut santa = Santa {
+            current_location: HouseLocation { x: 0, y: 0 },
+        };
+        let mut houses_with_presents: Grid = std::collections::HashSet::new();
+        houses_with_presents.insert(santa.current_location);
+        let map = ">".to_string();
+        let _ = deliver_presents_single_santa(&mut santa, &mut houses_with_presents, map);
 
-#[test]
-fn test_deliver_presents_santa_and_robot() {
-    let start = HouseLocation { x: 0, y: 0 };
-    let mut santa = Santa {
-        current_location: start,
-    };
-    let mut robot_santa = Santa {
-        current_location: start,
-    };
-    let mut houses_with_presents: Grid = std::collections::HashSet::new();
-    houses_with_presents.insert(start);
-    let map = String::from("^>v<");
-    let _ = deliver_presents_santa_and_robot(
-        &mut santa,
-        &mut robot_santa,
-        &mut houses_with_presents,
-        map,
-    );
-    assert_eq!(houses_with_presents.len(), 3)
+        assert_eq!(houses_with_presents.len(), 2)
+    }
+
+    #[test]
+    fn test_deliver_presents_santa_and_robot() {
+        let start = HouseLocation { x: 0, y: 0 };
+        let mut santa = Santa {
+            current_location: start,
+        };
+        let mut robot_santa = Santa {
+            current_location: start,
+        };
+        let mut houses_with_presents: Grid = std::collections::HashSet::new();
+        houses_with_presents.insert(start);
+        let map = String::from("^>v<");
+        let _ = deliver_presents_santa_and_robot(
+            &mut santa,
+            &mut robot_santa,
+            &mut houses_with_presents,
+            map,
+        );
+        assert_eq!(houses_with_presents.len(), 3)
+    }
 }
