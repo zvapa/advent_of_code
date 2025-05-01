@@ -90,26 +90,31 @@ pub fn stop_at_basement(
     None
 }
 
-#[test]
-fn test_floor_tracker_up_and_down() {
-    let mut tracker = FloorTracker::new();
-    let directions = parse_directions_from_str("(())");
-    traverse_building(&mut tracker, directions);
-    assert_eq!(tracker.floor, 0);
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_floor_tracker_up_and_down() {
+        let mut tracker = FloorTracker::new();
+        let directions = parse_directions_from_str("(())");
+        traverse_building(&mut tracker, directions);
+        assert_eq!(tracker.floor, 0);
+    }
 
-#[test]
-fn test_stop_at_basement_reached() {
-    let mut tracker = FloorTracker::new();
-    let directions = parse_directions_from_str("())");
-    let steps_to_basement = stop_at_basement(&mut tracker, directions);
-    assert_eq!(steps_to_basement, Some(3));
-}
+    #[test]
+    fn test_stop_at_basement_reached() {
+        let mut tracker = FloorTracker::new();
+        let directions = parse_directions_from_str("())");
+        let steps_to_basement = stop_at_basement(&mut tracker, directions);
+        assert_eq!(steps_to_basement, Some(3));
+    }
 
-#[test]
-fn test_stop_at_basement_not_reached() {
-    let mut tracker = FloorTracker::new();
-    let directions = parse_directions_from_str("((())");
-    let steps_to_basement = stop_at_basement(&mut tracker, directions);
-    assert_eq!(steps_to_basement, None);
+    #[test]
+    fn test_stop_at_basement_not_reached() {
+        let mut tracker = FloorTracker::new();
+        let directions = parse_directions_from_str("((())");
+        let steps_to_basement = stop_at_basement(&mut tracker, directions);
+        assert_eq!(steps_to_basement, None);
+    }
 }

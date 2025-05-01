@@ -111,48 +111,53 @@ where
     }
 }
 
-#[test]
-fn test_split_into_three_valid_line() {
-    let expected = split_into_three("21x2x22");
-    assert_eq!(expected, Ok(("21", "2", "22")))
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-#[test]
-fn test_split_into_three_invalid_line_nan() {
-    let result = dbg!(split_into_three("21x2x"));
-    assert!(result.is_err());
-    assert!(result.unwrap_err().contains("Failed"));
-}
+    #[test]
+    fn test_split_into_three_valid_line() {
+        let expected = split_into_three("21x2x22");
+        assert_eq!(expected, Ok(("21", "2", "22")))
+    }
 
-#[test]
-fn test_try_from_valid_numbers() {
-    let result = PresentBox::try_from("21x2x22").unwrap();
-    assert_eq!(
-        result,
-        PresentBox {
-            ordered_dimensions: [2, 21, 22]
-        }
-    )
-}
+    #[test]
+    fn test_split_into_three_invalid_line_nan() {
+        let result = dbg!(split_into_three("21x2x"));
+        assert!(result.is_err());
+        assert!(result.unwrap_err().contains("Failed"));
+    }
 
-#[test]
-fn test_area_calculation() {
-    let present = PresentBox::new([2, 3, 4]);
-    assert_eq!(present.area(), 52)
-}
+    #[test]
+    fn test_try_from_valid_numbers() {
+        let result = PresentBox::try_from("21x2x22").unwrap();
+        assert_eq!(
+            result,
+            PresentBox {
+                ordered_dimensions: [2, 21, 22]
+            }
+        )
+    }
 
-#[test]
-fn test_present_wrap_qty_calculation() {
-    let present1 = PresentBox::new([2, 3, 4]);
-    let present2 = PresentBox::new([1, 1, 10]);
-    assert_eq!(present1.wrap_qty(), 58);
-    assert_eq!(present2.wrap_qty(), 43);
-}
+    #[test]
+    fn test_area_calculation() {
+        let present = PresentBox::new([2, 3, 4]);
+        assert_eq!(present.area(), 52)
+    }
 
-#[test]
-fn test_present_ribbon_qty_calculation() {
-    let present1 = PresentBox::new([2, 3, 4]);
-    let present2 = PresentBox::new([1, 1, 10]);
-    assert_eq!(present1.ribbon_qty(), 34);
-    assert_eq!(present2.ribbon_qty(), 14);
+    #[test]
+    fn test_present_wrap_qty_calculation() {
+        let present1 = PresentBox::new([2, 3, 4]);
+        let present2 = PresentBox::new([1, 1, 10]);
+        assert_eq!(present1.wrap_qty(), 58);
+        assert_eq!(present2.wrap_qty(), 43);
+    }
+
+    #[test]
+    fn test_present_ribbon_qty_calculation() {
+        let present1 = PresentBox::new([2, 3, 4]);
+        let present2 = PresentBox::new([1, 1, 10]);
+        assert_eq!(present1.ribbon_qty(), 34);
+        assert_eq!(present2.ribbon_qty(), 14);
+    }
 }

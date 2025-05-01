@@ -31,3 +31,6 @@ impl Iterator for Md5HexIter {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {}
