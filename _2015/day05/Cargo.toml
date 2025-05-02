@@ -1,0 +1,16 @@
+[package]
+name = "_2015_day05"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "lib.rs"
+
+[[bin]]
+name = "_2015_day05_part1"
+path = "part1.rs"
+[[bin]]
+name = "_2015_day05_part2"
+path = "part2.rs"
+
+[dependencies]

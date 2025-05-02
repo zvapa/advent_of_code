@@ -5,6 +5,7 @@ members = [
     "_2015/day02",
     "_2015/day03",
     "_2015/day04",
+    "_2015/day05",
     # "_2016",
     # add more years as needed
 ]
