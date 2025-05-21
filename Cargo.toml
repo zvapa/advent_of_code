@@ -7,8 +7,7 @@ members = [
     "_2015/day04",
     "_2015/day05",
     "_2015/day06",
-    # "_2016",
-    # add more years as needed
+    "_2015/day07",
 ]
 
 [profile.dev]

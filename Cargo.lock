@@ -31,6 +31,10 @@ name = "_2015_day06"
 version = "0.1.0"
 
 [[package]]
+name = "_2015_day07"
+version = "0.1.0"
+
+[[package]]
 name = "crossbeam-deque"
 version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
