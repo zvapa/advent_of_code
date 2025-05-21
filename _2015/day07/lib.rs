@@ -133,7 +133,9 @@ impl<'a> TryFrom<&'a str> for Instruction<'a> {
                         dbg!(unknown);
                         return Err(unknown_token);
                     }
-                    None => return Err(incomplete_instruction),
+                    None => {
+                        return Err(incomplete_instruction)
+                    },
                 };
             }
             Some("NOT") => {
