@@ -64,7 +64,7 @@ impl Iterator for DirectionIter<std::str::Chars<'_>> {
     }
 }
 
-pub fn parse_directions_from_str(input: &str) -> DirectionIter<std::str::Chars> {
+pub fn parse_directions_from_str(input: &str) -> DirectionIter<std::str::Chars<'_>> {
     DirectionIter::new(input.chars())
 }
 

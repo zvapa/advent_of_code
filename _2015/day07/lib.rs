@@ -230,7 +230,7 @@ impl<'a> TryFrom<&'a str> for Instruction<'a> {
     }
 }
 
-pub fn parse_instructions(input: &str) -> Result<Vec<Instruction>, &str> {
+pub fn parse_instructions(input: &str) -> Result<Vec<Instruction<'_>>, &str> {
     input
         .trim()
         .lines()
