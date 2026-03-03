@@ -73,7 +73,7 @@ pub fn traverse_building(
     directions: impl Iterator<Item = Result<Direction, String>>,
 ) {
     for direction in directions {
-        floor_tracker.next(direction.expect("could not process direction"));
+        floor_tracker.next(direction.expect("direction should be either '(' for up or ')' for down"));
     }
 }
 
@@ -82,7 +82,7 @@ pub fn stop_at_basement(
     directions: impl Iterator<Item = Result<Direction, String>>,
 ) -> Option<u32> {
     for direction in directions {
-        floor_tracker.next(direction.expect("could not process direction"));
+        floor_tracker.next(direction.expect("direction should be either '(' for up or ')' for down"));
         if floor_tracker.floor == -1 {
             return Some(floor_tracker.steps_taken);
         }
