@@ -103,6 +103,14 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
+    fn test_floor_tracker_invalid_direction() {
+        let mut tracker = FloorTracker::new();
+        let dirs = parse_directions_from_str("[");        
+        traverse_building(&mut tracker, dirs);
+    }
+    
+    #[test]
     fn test_stop_at_basement_reached() {
         let mut tracker = FloorTracker::new();
         let directions = parse_directions_from_str("())");
