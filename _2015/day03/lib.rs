@@ -1,4 +1,4 @@
-pub type Grid = std::collections::HashSet<HouseLocation>;
+use std::{collections::HashSet, str::Chars};
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct HouseLocation {
@@ -6,31 +6,33 @@ pub struct HouseLocation {
     pub y: i32,
 }
 
-pub enum SantaDestination {
-    North(HouseLocation),
-    South(HouseLocation),
-    West(HouseLocation),
-    East(HouseLocation),
+pub type Grid = HashSet<HouseLocation>;
+
+pub enum SantaDestinationTravel {
+    North { from: HouseLocation },
+    South { from: HouseLocation },
+    West { from: HouseLocation },
+    East { from: HouseLocation },
 }
 
-impl SantaDestination {
+impl SantaDestinationTravel {
     pub fn travel(&self) -> HouseLocation {
         match &self {
-            SantaDestination::North(current_location) => HouseLocation {
-                x: current_location.x,
-                y: current_location.y + 1,
+            SantaDestinationTravel::North { from } => HouseLocation {
+                x: from.x,
+                y: from.y + 1,
             },
-            SantaDestination::South(current_location) => HouseLocation {
-                x: current_location.x,
-                y: current_location.y - 1,
+            SantaDestinationTravel::South { from } => HouseLocation {
+                x: from.x,
+                y: from.y - 1,
             },
-            SantaDestination::West(current_location) => HouseLocation {
-                x: current_location.x - 1,
-                y: current_location.y,
+            SantaDestinationTravel::West { from } => HouseLocation {
+                x: from.x - 1,
+                y: from.y,
             },
-            SantaDestination::East(current_location) => HouseLocation {
-                x: current_location.x + 1,
-                y: current_location.y,
+            SantaDestinationTravel::East { from } => HouseLocation {
+                x: from.x + 1,
+                y: from.y,
             },
         }
     }
@@ -43,11 +45,19 @@ pub struct Santa {
 impl Santa {
     pub fn deliver_present(&mut self, direction: char) -> Result<(), String> {
         // north (^), south (v), east (>), or west (<)
-        let destination: SantaDestination = match direction {
-            '^' => SantaDestination::North(self.current_location),
-            'v' => SantaDestination::South(self.current_location),
-            '>' => SantaDestination::East(self.current_location),
-            '<' => SantaDestination::West(self.current_location),
+        let destination: SantaDestinationTravel = match direction {
+            '^' => SantaDestinationTravel::North {
+                from: self.current_location,
+            },
+            'v' => SantaDestinationTravel::South {
+                from: self.current_location,
+            },
+            '>' => SantaDestinationTravel::East {
+                from: self.current_location,
+            },
+            '<' => SantaDestinationTravel::West {
+                from: self.current_location,
+            },
             unknown => return Err(format!("unknown destination: {}", unknown)),
         };
         self.current_location = destination.travel();
@@ -76,12 +86,12 @@ pub fn deliver_presents_single_santa(
 }
 
 pub struct PresentRoute<'a> {
-    input: std::str::Chars<'a>,
+    input: Chars<'a>,
     turn: usize,
 }
 
 impl<'a> PresentRoute<'a> {
-    pub fn new(input: std::str::Chars<'a>) -> Self {
+    pub fn new(input: Chars<'a>) -> Self {
         Self { input, turn: 0 }
     }
 }

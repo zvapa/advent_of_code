@@ -21,6 +21,7 @@ impl<'a> TryFrom<&'a str> for PresentBox {
 trait SplitOnceNonEmpty<'a> {
     fn split_once_non_empty(&self, delimiter: char) -> Option<(&'a str, &'a str)>;
 }
+
 impl<'a> SplitOnceNonEmpty<'a> for &'a str {
     fn split_once_non_empty(&self, delimiter: char) -> Option<(&'a str, &'a str)> {
         match self.split_once(delimiter) {
@@ -56,6 +57,7 @@ pub struct PresentBox {
     /// length, width, height, in ascending order
     ordered_dimensions: [u32; 3],
 }
+
 impl PresentBox {
     fn new(mut dimensions: [u32; 3]) -> PresentBox {
         dimensions.sort();
@@ -85,11 +87,17 @@ impl PresentBox {
     }
 }
 
-pub struct PresentBoxIter<'a, I: Iterator<Item = &'a str>> {
+pub struct PresentBoxIter<'a, I>
+where
+    I: Iterator<Item = &'a str>,
+{
     lines: I,
 }
 
-impl<'a, I: Iterator<Item = &'a str>> PresentBoxIter<'a, I> {
+impl<'a, I> PresentBoxIter<'a, I>
+where
+    I: Iterator<Item = &'a str>,
+{
     pub fn new(dimensions_in_order: I) -> Self {
         Self {
             lines: dimensions_in_order,

@@ -1,5 +1,4 @@
-use std::collections::HashSet;
-use std::error::Error;
+use std::{collections::HashSet, error::Error};
 
 use _2015_day03::Grid;
 use _2015_day03::HouseLocation;
