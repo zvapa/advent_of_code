@@ -2,15 +2,15 @@ use std::{collections::HashSet, error::Error};
 
 use _2015_day03::Grid;
 use _2015_day03::HouseLocation;
-use _2015_day03::Santa;
+use _2015_day03::TravelingSanta;
 use _2015_day03::deliver_presents_santa_and_robot;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let start = HouseLocation { x: 0, y: 0 };
-    let mut santa = Santa {
+    let mut santa = TravelingSanta {
         current_location: start,
     };
-    let mut robot_santa = Santa {
+    let mut robot_santa = TravelingSanta {
         current_location: start,
     };
     let mut houses_with_presents: Grid = HashSet::new();

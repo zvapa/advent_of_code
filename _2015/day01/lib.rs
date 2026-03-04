@@ -1,10 +1,12 @@
+use std::{convert::TryFrom, str::Chars};
+
 #[derive(PartialEq, Debug)]
 pub enum Direction {
     Up,
     Down,
 }
 
-impl std::convert::TryFrom<char> for Direction {
+impl TryFrom<char> for Direction {
     type Error = String;
 
     fn try_from(value: char) -> Result<Self, Self::Error> {
@@ -53,7 +55,7 @@ impl<I: Iterator<Item = char>> DirectionIter<I> {
     }
 }
 
-impl Iterator for DirectionIter<std::str::Chars<'_>> {
+impl Iterator for DirectionIter<Chars<'_>> {
     type Item = Result<Direction, String>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -64,7 +66,7 @@ impl Iterator for DirectionIter<std::str::Chars<'_>> {
     }
 }
 
-pub fn parse_directions_from_str(input: &str) -> DirectionIter<std::str::Chars<'_>> {
+pub fn parse_directions_from_str(input: &str) -> DirectionIter<Chars<'_>> {
     DirectionIter::new(input.chars())
 }
 

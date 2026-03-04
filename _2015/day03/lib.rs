@@ -38,11 +38,11 @@ impl SantaDestinationTravel {
     }
 }
 
-pub struct Santa {
+pub struct TravelingSanta {
     pub current_location: HouseLocation,
 }
 
-impl Santa {
+impl TravelingSanta {
     pub fn deliver_present(&mut self, direction: char) -> Result<(), String> {
         // north (^), south (v), east (>), or west (<)
         let destination: SantaDestinationTravel = match direction {
@@ -66,7 +66,7 @@ impl Santa {
 }
 
 fn deliver_and_mark(
-    santa: &mut Santa,
+    santa: &mut TravelingSanta,
     houses_with_presents: &mut Grid,
     char: char,
 ) -> Result<(), String> {
@@ -76,7 +76,7 @@ fn deliver_and_mark(
 }
 
 pub fn deliver_presents_single_santa(
-    santa: &mut Santa,
+    santa: &mut TravelingSanta,
     houses_with_presents: &mut Grid,
     input_file_content: String,
 ) -> Result<(), String> {
@@ -109,8 +109,8 @@ impl<'a> Iterator for PresentRoute<'a> {
 }
 
 pub fn deliver_presents_santa_and_robot(
-    santa: &mut Santa,
-    robot_santa: &mut Santa,
+    santa: &mut TravelingSanta,
+    robot_santa: &mut TravelingSanta,
     houses_with_presents: &mut Grid,
     input_file_content: String,
 ) -> Result<(), String> {
@@ -132,13 +132,13 @@ mod tests {
 
     #[test]
     fn test_deliver_presents_single_santa() {
-        let mut santa = Santa {
+        let mut santa = TravelingSanta {
             current_location: HouseLocation { x: 0, y: 0 },
         };
         let mut houses_with_presents: Grid = std::collections::HashSet::new();
         houses_with_presents.insert(santa.current_location);
-        let map = ">".to_string();
-        let _ = deliver_presents_single_santa(&mut santa, &mut houses_with_presents, map);
+        let directions = ">".to_string();
+        let _ = deliver_presents_single_santa(&mut santa, &mut houses_with_presents, directions);
 
         assert_eq!(houses_with_presents.len(), 2)
     }
@@ -146,10 +146,10 @@ mod tests {
     #[test]
     fn test_deliver_presents_santa_and_robot() {
         let start = HouseLocation { x: 0, y: 0 };
-        let mut santa = Santa {
+        let mut santa = TravelingSanta {
             current_location: start,
         };
-        let mut robot_santa = Santa {
+        let mut robot_santa = TravelingSanta {
             current_location: start,
         };
         let mut houses_with_presents: Grid = std::collections::HashSet::new();
