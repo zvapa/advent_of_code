@@ -6,7 +6,8 @@ fn main() {
 
     let mut md5_iter = Md5HexIter::new(KEY.to_string(), 1..);
     while let Some(md5) = md5_iter.next() {
-        if md5[0] == 0 && md5[1] == 0 && md5[2] == 0 {
+        /*The third byte must be less than `0x10` (i.e., its high nibble is 0), which ensures the 5th hex digit is `0` while the 6th can be anything.*/
+        if md5[0] == 0 && md5[1] == 0 && md5[2] < 0x10 {
             println!("{}", md5_iter.current);
             break;
         }
